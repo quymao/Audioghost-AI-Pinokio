@@ -7,8 +7,7 @@ module.exports = {
   menu: async (kernel) => {
     let installing = await kernel.running(__dirname, "install.js")
     let installed = await kernel.exists(__dirname, "app/backend", "env")
-    let running = await kernel.running(__dirname, "startBackEnd.js")
-    let running2 = await kernel.running(__dirname, "startFrontEnd.js")
+    let running = await kernel.running(__dirname, "start.js")
     if (installing) {
       return [{
         default: true,
@@ -18,44 +17,32 @@ module.exports = {
       }]
     } else if (installed) {
       if (running) {
-        kernel.memory.local[path.resolve(__dirname, "startBackEnd.js")]
-        let local2 = kernel.memory.local[path.resolve(__dirname, "startFrontEnd.js")]
-        if (local2 && local2.url) {
+        let local = kernel.memory.local[path.resolve(__dirname, "start.js")]
+        if (local && local.url) {
           return [{
             default: true,
             icon: "fa-solid fa-rocket",
             text: "Open Web UI",
-            href: local2.url,
+            href: local.url,
           }, {
             icon: 'fa-solid fa-terminal',
-            text: "TerminalBackEnd",
-            href: "startBackEnd.js",
-          }, {
-            icon: 'fa-solid fa-terminal',
-            text: "TerminalFrontEnd",
-            href: "startFrontEnd.js",
+            text: "Terminal",
+            href: "start.js",
           }]
         } else {
           return [{
             default: true,
             icon: 'fa-solid fa-terminal',
-            text: "TerminalFrontEnd",
-            href: "startFrontEnd.js",
-          }, {icon: "fa-solid fa-power-off",
-             text: "TerminalBackEnd",
-             href: "startBackEnd.js",
+            text: "Terminal",
+            href: "start.js",
           }]
         }
       } else {
         return [{
           default: true,
           icon: "fa-solid fa-power-off",
-          text: "StartBackEnd",
-          href: "startBackEnd.js",
-        }, {
-		  icon: "fa-solid fa-power-off",
-          text: "StartFrontEnd",
-          href: "startFrontEnd.js",
+          text: "Start",
+          href: "start.js",
         }, {
           icon: "fa-solid fa-plug",
           text: "Update",
