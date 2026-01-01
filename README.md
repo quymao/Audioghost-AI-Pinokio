@@ -12,5 +12,5 @@ step 3 : open Webui
 
 more information please go to the original repo
 
-
+For a better installation process, please refer to the pull request. I'm a bad guy ^_^.
 
